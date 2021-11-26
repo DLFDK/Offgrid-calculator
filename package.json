@@ -1,0 +1,29 @@
+{
+  "name": "website_v1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scripts/develop.js",
+  "scripts": {
+    "build:standard": "node scripts/build.js",
+    "build:inline": "npm run build:standard && node scripts/inline.js",
+    "develop": "node scripts/develop.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DLFDK/Template_website_v1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DLFDK/Template_website_v1/issues"
+  },
+  "homepage": "https://github.com/DLFDK/Template_website_v1#readme",
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "chokidar": "^3.4.3",
+    "http-proxy-middleware": "^1.0.1",
+    "sass": "^1.29.0",
+    "terser": "^5.3.8"
+  }
+}

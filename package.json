@@ -4,9 +4,9 @@
   "description": "",
   "main": "scripts/develop.js",
   "scripts": {
-    "build:standard": "node scripts/build.js",
-    "build:inline": "npm run build:standard && node scripts/inline.js",
-    "develop": "node scripts/develop.js"
+    "build:standard": "node website/scripts/build.js",
+    "build:inline": "npm run build:standard && node website/scripts/inline.js",
+    "develop": "node website/scripts/develop.js"
   },
   "repository": {
     "type": "git",

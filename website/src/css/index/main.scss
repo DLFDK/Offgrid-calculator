@@ -1,2 +1,10 @@
 main {
+    --grid-content-columns: minmax(0px, 1fr) minmax(320px, 1080px) minmax(0px, 1fr);
+    display: grid;
+    grid-template-columns: var(--grid-content-columns);
+    padding: 20px;
+
+    > * {
+        grid-column: 2;
+    }
 }

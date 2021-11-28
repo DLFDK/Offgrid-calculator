@@ -1,12 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/index.css" />
+        <title>Document</title>
+    </head>
+    <body>
+        <main>
+            <!-- <header class="header"><h1 class="header__title">Offgrid in Canon City</h1></header> -->
+            <div class="chart">
+                <div class="chart__header">
+                    <h1 class="chart__title">Offgrid in Canon City</h1>
+                    <p class="chart__subtitle">Each dot indicates the storage level on that day (1/1-2005 to 12/31-2015)</p>
+                </div>
+                <div class="chart__y-axis">
+                    <p>100%</p>
+                    <p>75%</p>
+                    <p>50%</p>
+                    <p>25%</p>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="chart__grid">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="chart__canvas-container" id="chart__canvas-container">
+                    <canvas id="canvas"></canvas>
+                </div>
+                <div class="chart__origin"></div>
+                <div class="chart__x-axis">
+                    <div>
+                        <p>Jan</p>
+                    </div>
+                    <div>
+                        <p>Feb</p>
+                    </div>
+                    <div>
+                        <p>Mar</p>
+                    </div>
+                    <div>
+                        <p>Apr</p>
+                    </div>
+                    <div>
+                        <p>May</p>
+                    </div>
+                    <div>
+                        <p>Jun</p>
+                    </div>
+                    <div>
+                        <p>Jul</p>
+                    </div>
+                    <div>
+                        <p>Aug</p>
+                    </div>
+                    <div>
+                        <p>Sep</p>
+                    </div>
+                    <div>
+                        <p>Oct</p>
+                    </div>
+                    <div>
+                        <p>Nov</p>
+                    </div>
+                    <div>
+                        <p>Dec</p>
+                    </div>
+                </div>
+                <div class="chart__credit"><p>Based on solar radiation data from <a href="https://nsrdb.nrel.gov/">NSRDB</a> as collected by <a href="https://www.nrel.gov/">NREL</a>. Data acquired via <a href="https://ec.europa.eu/jrc/en/pvgis">PVGIS</a> </p></div>
+            </div>
+            <div class="controls">
+                <div class="controls__range">
+                    <p class="controls__parameter-name">Collector Area</p>
+                    <p class="controls__value"><span class="controls__number" id="solarValue">20</span> m<sup>2</sup></p>
+                    <input class="controls__input" id="solar" type="range" min="10" max="50" value="20" />
+                </div>
+                <div class="controls__range">
+                    <p class="controls__parameter-name">Collector Efficiency</p>
+                    <p class="controls__value"><span class="controls__number" id="efficiencyValue">60</span> %</p>
+                    <input class="controls__input" id="efficiency" type="range" min="10" max="100" value="60" />
+                </div>
+                <div class="controls__range">
+                    <p class="controls__parameter-name">Total Heat Transfer Coefficient</p>
+                    <p class="controls__value"><span class="controls__number" id="htcValue">100</span> <sup>W</sup>/<sub>&deg;C</sub></p>
+                    <input class="controls__input" id="htc" type="range" min="10" max="200" value="100" />
+                </div>
+                <div class="controls__range">
+                    <p class="controls__parameter-name">Storage capacity</p>
+                    <p class="controls__value"><span class="controls__number" id="storageValue">50</span> kWh</p>
+                    <input class="controls__input" id="storage" type="range" min="10" max="100" value="50" />
+                </div>
+            </div>
+        </main>
+        <!-- <script defer src="js/chart.min.js"></script> -->
+        <script src="js/index.js"></script>
+    </body>
 </html>

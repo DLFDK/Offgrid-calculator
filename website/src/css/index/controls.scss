@@ -1,0 +1,47 @@
+.controls {
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
+    place-items: center;
+    column-gap: 36px;
+    row-gap: 24px;
+    padding: 20px;
+    &__range {
+        width: 100%;
+        accent-color: #84CAE7;
+        display: grid;
+        grid-template-areas: 
+            "parameter value"
+            "input input";
+        row-gap: 10px;
+    }
+
+    &__parameter-name {
+        grid-area: parameter;
+        color: white;
+        place-self: center start;
+    }
+
+    &__input {
+        grid-area: input;
+        width: 100%;
+    }
+
+    &__value {
+        grid-area: value;
+        place-self: center end;
+        padding-bottom: 4px;
+        color: white;
+        text-align: right;
+        padding-left: 8px;
+    }
+
+    &__number {
+        font-size: 2rem;
+    }
+
+    &__unit {
+        height: 24px;
+        grid-row: 2;
+        color: white;
+    }
+}

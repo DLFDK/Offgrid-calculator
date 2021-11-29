@@ -12,8 +12,9 @@
             <!-- <header class="header"><h1 class="header__title">Offgrid in Canon City</h1></header> -->
             <div class="chart">
                 <div class="chart__header">
-                    <h1 class="chart__title">Offgrid in Canon City</h1>
-                    <p class="chart__subtitle">Each dot indicates the storage level on that day (1/1-2005 to 12/31-2015)</p>
+                    <h1 class="chart__title">Offgrid Calculator</h1>
+                    <p class="chart__location">Canon City, (38.44, -105.22)</p>
+                    <p class="chart__explainer">Each dot indicates the storage level on that day (1/1-2005 to 12/31-2015)</p>
                 </div>
                 <div class="chart__y-axis">
                     <p>100%</p>
@@ -81,7 +82,31 @@
                         <p>Dec</p>
                     </div>
                 </div>
-                <div class="chart__credit"><p>Based on solar radiation data from <a href="https://nsrdb.nrel.gov/">NSRDB</a> as collected by <a href="https://www.nrel.gov/">NREL</a>. Data acquired via <a href="https://ec.europa.eu/jrc/en/pvgis">PVGIS</a> </p></div>
+                <div class="chart__summary">
+                    <div class="chart__stat">
+                        <p class="chart__parameter-name">Energy Deficit</p>
+                        <p class="chart__value"><span class="chart__number" id="deficitValue">192095</span> kWh</p>
+                        <div class="chart__separator"></div>
+                    </div>
+                    <div class="chart__stat">
+                        <p class="chart__parameter-name">Empty Storage</p>
+                        <p class="chart__value"><span class="chart__number" id="emptyValue">192095</span> days</p>
+                        <div class="chart__separator"></div>
+                    </div>
+                    <div class="chart__stat">
+                        <p class="chart__parameter-name">Energy Surplus</p>
+                        <p class="chart__value"><span class="chart__number" id="surplusValue">192095</span> kWh</p>
+                        <div class="chart__separator"></div>
+                    </div>
+                    <div class="chart__stat">
+                        <p class="chart__parameter-name">Full Storage</p>
+                        <p class="chart__value"><span class="chart__number" id="fullValue">192095</span> days</p>
+                        <div class="chart__separator"></div>
+                    </div>
+                </div>
+                <div class="chart__credit">
+                    <p>Based on solar radiation data from <a href="https://nsrdb.nrel.gov/">NSRDB</a> as collected by <a href="https://www.nrel.gov/">NREL</a>. Data acquired via <a href="https://ec.europa.eu/jrc/en/pvgis">PVGIS</a></p>
+                </div>
             </div>
             <div class="controls">
                 <div class="controls__range">
@@ -95,14 +120,14 @@
                     <input class="controls__input" id="efficiency" type="range" min="10" max="100" value="60" />
                 </div>
                 <div class="controls__range">
-                    <p class="controls__parameter-name">Total Heat Transfer Coefficient</p>
+                    <p class="controls__parameter-name">Whole House Heat Transfer Coefficient</p>
                     <p class="controls__value"><span class="controls__number" id="htcValue">100</span> <sup>W</sup>/<sub>&deg;C</sub></p>
-                    <input class="controls__input" id="htc" type="range" min="10" max="200" value="100" />
+                    <input class="controls__input" id="htc" type="range" min="10" max="300" value="100" />
                 </div>
                 <div class="controls__range">
-                    <p class="controls__parameter-name">Storage capacity</p>
+                    <p class="controls__parameter-name">Storage Capacity</p>
                     <p class="controls__value"><span class="controls__number" id="storageValue">50</span> kWh</p>
-                    <input class="controls__input" id="storage" type="range" min="10" max="100" value="50" />
+                    <input class="controls__input" id="storage" type="range" min="10" max="200" value="50" />
                 </div>
             </div>
         </main>

@@ -17,6 +17,10 @@ async function main() {
     const container = document.getElementById("chart__canvas-container");
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
+    const value_deficit = document.getElementById("deficitValue");
+    const value_empty = document.getElementById("emptyValue");
+    const value_surplus = document.getElementById("surplusValue");
+    const value_full = document.getElementById("fullValue");
     const parameters = {
         indoorT: 22,
         solarArea: 20,
@@ -64,22 +68,37 @@ async function main() {
     function drawPoint() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         const state = [];
-        state.push(parameters["storage"] * 1e3);
+        const limit = parameters["storage"] * 1e3;
+        state.push(limit);
         const scaleFactorHeight = baseline / parameters["storage"];
         let gain;
         let loss;
         let result;
+        let deficit = 0;
+        let empty = 0;
+        let surplus = 0;
+        let full = 0;
         console.time("Draw");
         for (let i = 0; i < data["Energy"].length; i++) {
             gain = parameters["solarArea"] * data["Energy"][i] * parameters["efficiency"];
             loss = Math.min(parameters["htc"] * (data["Temperature"][i] - parameters["indoorT"]) * 24, 0);
-            result = Math.min(state[i] + gain + loss, parameters["storage"] * 1e3);
-            result = Math.max(result, 0);
+            result = gain + loss + state[i];
+            if (result > limit) {
+                full++;
+                surplus = surplus + result - limit;
+                result = limit;
+            } else if (result < 0) {
+                empty++;
+                deficit = deficit + result;
+                result = 0;
+            }
             state.push(result);
-            ctx.beginPath();
-            ctx.arc((i + 1) % 365 * scaleFactorWidth + 4, baseline - state[i + 1] / 1e3 * scaleFactorHeight, 2, 0, 2 * Math.PI);
-            ctx.fill();
+            ctx.fillRect((i + 1) % 365 * scaleFactorWidth, baseline - state[i + 1] / 1e3 * scaleFactorHeight, 2, 2);
         }
+        value_surplus.textContent = Math.round(surplus / 1e3, 0);
+        value_deficit.textContent = Math.round(deficit / -1e3, 0);
+        value_full.textContent = Math.round(full);
+        value_empty.textContent = Math.round(empty);
         console.timeEnd("Draw");
     }
     function drawPath() {

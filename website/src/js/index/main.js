@@ -4,6 +4,11 @@ async function main() {
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext('2d');
 
+    const value_deficit = document.getElementById("deficitValue");
+    const value_empty = document.getElementById("emptyValue");
+    const value_surplus = document.getElementById("surplusValue");
+    const value_full = document.getElementById("fullValue");
+
     const parameters = {
         indoorT: 22, // degC
         solarArea: 20, // m2
@@ -62,24 +67,50 @@ async function main() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         const state = [];
-        state.push(parameters["storage"] * 1000);
+        const limit = parameters["storage"] * 1000;
+        state.push(limit);
         const scaleFactorHeight = baseline / parameters["storage"];
 
         let gain;
         let loss;
         let result;
 
+        let deficit = 0;
+        let empty = 0;
+        let surplus = 0;
+        let full = 0;
+
         console.time("Draw")
         for (let i = 0; i < data["Energy"].length; i++) {
             gain = parameters["solarArea"] * data["Energy"][i] * parameters["efficiency"];
             loss = Math.min(parameters["htc"] * (data["Temperature"][i] - parameters["indoorT"]) * 24, 0);
-            result = Math.min(state[i] + gain + loss, parameters["storage"] * 1000);
-            result = Math.max(result, 0)
+
+            result = gain + loss + state[i];
+
+            if(result > limit){
+                full++;
+                surplus = surplus + result - limit;
+                result = limit;
+            } else if (result < 0){
+                empty++;
+                deficit = deficit + result;
+                result = 0;
+            }
+
+            // result = Math.min(state[i] + gain + loss, parameters["storage"] * 1000);
+            // // result = Math.max(result, 0)
+            // if(result < 0){
+            //     deficit = deficit + result;
+            //     empty++;
+            //     result = 0;
+            // } else if ( result + state[i] > parameters["storage"] * 1000){
+            //     surplus = surplus + result - state[i];
+            // }
             state.push(result)
 
-            ctx.beginPath();
-            ctx.arc((i + 1) % 365 * scaleFactorWidth + 4, baseline - (state[i + 1] / 1000) * scaleFactorHeight, 2, 0, 2 * Math.PI);
-            ctx.fill();
+            // ctx.beginPath();
+            // ctx.arc((i + 1) % 365 * scaleFactorWidth + 4, baseline - (state[i + 1] / 1000) * scaleFactorHeight, 2, 0, 2 * Math.PI);
+            // ctx.fill();
 
             // if(result === 0){
             //     ctx.fillStyle = "#4CE0D2";
@@ -88,8 +119,12 @@ async function main() {
             // } else {
             //     ctx.fillStyle = "black";
             // }
-            // ctx.fillRect((i + 1) % 365 * scaleFactorWidth, baseline - (state[i + 1] / 1000) * scaleFactorHeight, 5, 5)
+            ctx.fillRect((i + 1) % 365 * scaleFactorWidth, baseline - (state[i + 1] / 1000) * scaleFactorHeight, 2, 2)
         }
+        value_surplus.textContent = Math.round(surplus / 1000,0);
+        value_deficit.textContent = Math.round(deficit / -1000,0);
+        value_full.textContent = Math.round(full);
+        value_empty.textContent = Math.round(empty);
         console.timeEnd("Draw")
     }
 

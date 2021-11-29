@@ -34,6 +34,8 @@ async function build() {
         await js(folder);
     }
 
+    data();
+
     function html() {
         fs.mkdirSync("website/dist/", { recursive: true })
         fs.copyFileSync("website/src/index.html", "website/dist/index.html");
@@ -61,5 +63,9 @@ async function build() {
         const result = await minify(components);
 
         fs.writeFileSync(`website/dist/js/${folder}.js`, result.code, "utf8")
+    }
+
+    function data(){
+        fs.copyFileSync("website/src/js/data.json", "website/dist/js/data.json");
     }
 }

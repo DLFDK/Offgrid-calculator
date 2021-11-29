@@ -78,7 +78,6 @@ async function main() {
         let empty = 0;
         let surplus = 0;
         let full = 0;
-        console.time("Draw");
         for (let i = 0; i < data["Energy"].length; i++) {
             gain = parameters["solarArea"] * data["Energy"][i] * parameters["efficiency"];
             loss = Math.min(parameters["htc"] * (data["Temperature"][i] - parameters["indoorT"]) * 24, 0);
@@ -99,7 +98,6 @@ async function main() {
         value_deficit.textContent = Math.round(deficit / -1e3, 0);
         value_full.textContent = Math.round(full);
         value_empty.textContent = Math.round(empty);
-        console.timeEnd("Draw");
     }
     function drawPath() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);

@@ -130,6 +130,92 @@
                     <input class="controls__input" id="storage" type="range" min="10" max="200" value="50" />
                 </div>
             </div>
+            <div class="description">
+                <h2 class="description__title">The math behind it all</h2>
+                <div class="description__content">
+                    <p>The simulation is based on an extremely simple model with only a handful of inputs.</p>
+                    <p>The dataset consists of 4017 datapoints covering the days between 1/1-2005 and 12/31-2015, with each datapoint having two values for that 24 hour period:</p>
+                    <ul class="description__list">
+                        <li>The total solar insolation (based on global irradiance) at the optimal angle for December at the given location</li>
+                        <li>The average outdoor temperature at a height of 2 meters</li>
+                    </ul>
+                    <p>The two values are used to calculate the energy-gain and energy-loss for that day.</p>
+                </div>
+                <div class="description__equation-container">
+                    <div class="description__equation">
+                        <p class="description__term">Energy<sub>gain</sub></p>
+                        <div class="description__unit"><p>Wh</p></div>
+                        <p class="description__symbol">=</p>
+                        <p class="description__term">Collector&#8209;area</p>
+                        <div class="description__unit">
+                            <p>m<sup>2</sup></p>
+                        </div>
+                        <p class="description__symbol">&#215;</p>
+                        <p class="description__term">Total&#8209;solar&#8209;insolation</p>
+                        <div class="description__unit description__unit--fraction">
+                            <p>Wh</p>
+                            <p>m<sup>2</sup></p>
+                        </div>
+                        <p class="description__symbol">&#215;</p>
+                        <p class="description__term">Collector&#8209;efficiency</p>
+                    </div>
+                    <div class="description__equation">
+                        <p class="description__term">Energy<sub>loss</sub></p>
+                        <div class="description__unit"><p>Wh</p></div>
+                        <p class="description__symbol">=</p>
+                        <p class="description__term">Whole&#8209;house&#8209;heat&#8209;transfer&#8209;coefficient</p>
+                        <div class="description__unit description__unit--fraction">
+                            <p>W</p>
+                            <p>&deg;C</p>
+                        </div>
+                        <p class="description__symbol">&#215;</p>
+                        <div class="description__composit">
+                            <p class="description__symbol">(&nbsp;</p>
+                            <p class="description__term">Average&#8209;outdoor&#8209;temperature</p>
+                            <p class="description__symbol">&nbsp;&#8722;&nbsp;</p>
+                            <p class="description__term">Indoor&#8209;temperature</p>
+                            <p class="description__symbol">&nbsp;)</p>
+                        </div>
+                        <div class="description__unit"><p>&deg;C</p></div>
+                        <p class="description__symbol">&#215;</p>
+                        <p class="description__term">24</p>
+                        <div class="description__unit description__unit--fraction">
+                            <p>s Wh</p>
+                            <p>J</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="description__content">
+                    <p>The indoor temperature is set at 22 &deg;C</p>
+                    <p>At the simulation outset, the energy-storage is full. The net-gain (or loss) for each day is then added to the storage, either increasing or decreasing its level. The storage level is not allowed to exceed the chosen maximum or fall below 0 kWh</p>
+                </div>
+                <div class="description__equation-container">
+                    <div class="description__equation">
+                        <p class="description__term">Storage<sub>tomorrow</sub></p>
+                        <div class="description__unit"><p>Wh</p></div>
+                        <p class="description__symbol">=</p>
+                        <p class="description__term">Energy<sub>gain</sub></p>
+                        <div class="description__unit"><p>Wh</p></div>
+                        <p class="description__symbol">+</p>
+                        <p class="description__term">Energy<sub>loss</sub></p>
+                        <div class="description__unit"><p>Wh</p></div>
+                        <p class="description__symbol">+</p>
+                        <p class="description__term">Storage<sub>today</sub></p>
+                        <div class="description__unit"><p>Wh</p></div>
+                    </div>
+                </div>
+                <div class="description__content">
+                    <p>Due to the model's simplicity there's naturally a long list of factors which it does not account for.</p>
+                    <p>To name just a few:</p>
+                    <ul class="description__list">
+                        <li>Energy losses from the storage tank or battery</li>
+                        <li>Conversion losses between collector and tank or battery</li>
+                        <li>Solar heat gain through windows</li>
+                        <li>Internal gains not powered by the collectors</li>
+                    </ul>
+                    <p>As the model is based on historical solar and weather data without any additional statistical treatment it cannot make any predicitions on future conditions</p>
+                </div>
+            </div>
         </main>
         <!-- <script defer src="js/chart.min.js"></script> -->
         <script src="js/index.js"></script>

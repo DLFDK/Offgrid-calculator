@@ -261,4 +261,58 @@ main > * {
   color: white;
 }
 
+.description {
+  color: white;
+  padding: 48px 24px 24px 24px;
+}
+.description__title {
+  padding-bottom: 16px;
+}
+.description__content {
+  max-width: 500px;
+  line-height: 1.5;
+}
+.description__content > p:not(:last-child) {
+  padding-bottom: 8px;
+}
+.description__list {
+  padding-bottom: 8px;
+}
+.description__equation-container {
+  display: flex;
+  flex-direction: column;
+  border-left: 2px solid #4CE0D2;
+  margin: 16px 0;
+}
+.description__equation {
+  padding-left: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-style: italic;
+}
+.description__term {
+  width: max-content;
+}
+.description__composit {
+  display: flex;
+}
+.description__unit {
+  opacity: 0.8;
+  width: max-content;
+}
+.description__unit--fraction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.8em;
+}
+.description__unit--fraction p:first-child {
+  border-bottom: 1px solid white;
+}
+.description__symbol {
+  width: min-content;
+}
+
 /*# sourceMappingURL=index.css.map */

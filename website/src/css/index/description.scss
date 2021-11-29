@@ -22,6 +22,7 @@
     &__equation-container {
         display: flex;
         flex-direction: column;
+        gap: 16px;
         // margin-left: 8px;
         border-left: 2px solid #4CE0D2;
         margin: 16px 0;
@@ -43,6 +44,7 @@
 
     &__composit {
         display: flex;
+        flex-wrap: wrap;
     }
 
     &__unit {

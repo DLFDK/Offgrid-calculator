@@ -48,11 +48,6 @@ main > * {
   grid-column: 2;
 }
 
-.header__title {
-  padding-left: 48px;
-  color: white;
-}
-
 .chart {
   --tick-color: rgba(255, 255, 255, 0.2);
   --label-color: rgba(255, 255, 255, 0.4);
@@ -281,6 +276,7 @@ main > * {
 .description__equation-container {
   display: flex;
   flex-direction: column;
+  gap: 16px;
   border-left: 2px solid #4CE0D2;
   margin: 16px 0;
 }
@@ -297,6 +293,7 @@ main > * {
 }
 .description__composit {
   display: flex;
+  flex-wrap: wrap;
 }
 .description__unit {
   opacity: 0.8;

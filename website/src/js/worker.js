@@ -1,2 +1,0 @@
-
-//# sourceMappingURL=worker.js.map

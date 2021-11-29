@@ -1,16 +1,3 @@
-function input(canvas, ctx, data) {
-    const range = document.getElementById("range");
-    range.addEventListener("input", (() => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.beginPath();
-        ctx.moveTo(0, data[0] / 100 * (range.value / 100));
-        for (let i = 1; i < data.length; i++) {
-            ctx.lineTo(i, data[i] / 100 * (range.value / 100));
-        }
-        ctx.stroke();
-    }));
-}
-
 main();
 
 async function main() {
@@ -94,10 +81,10 @@ async function main() {
             state.push(result);
             ctx.fillRect((i + 1) % 365 * scaleFactorWidth, baseline - state[i + 1] / 1e3 * scaleFactorHeight, 2, 2);
         }
-        value_surplus.textContent = Math.round(surplus / 1e3, 0);
-        value_deficit.textContent = Math.round(deficit / -1e3, 0);
-        value_full.textContent = Math.round(full);
-        value_empty.textContent = Math.round(empty);
+        value_surplus.textContent = Math.round(surplus / 11 / 1e3, 0);
+        value_deficit.textContent = Math.round(deficit / 11 / -1e3, 0);
+        value_full.textContent = Math.round(full / 11, 0);
+        value_empty.textContent = Math.round(empty / 11, 0);
     }
     function drawPath() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);

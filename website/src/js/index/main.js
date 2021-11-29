@@ -121,10 +121,10 @@ async function main() {
             // }
             ctx.fillRect((i + 1) % 365 * scaleFactorWidth, baseline - (state[i + 1] / 1000) * scaleFactorHeight, 2, 2)
         }
-        value_surplus.textContent = Math.round(surplus / 1000,0);
-        value_deficit.textContent = Math.round(deficit / -1000,0);
-        value_full.textContent = Math.round(full);
-        value_empty.textContent = Math.round(empty);
+        value_surplus.textContent = Math.round((surplus / 11) / 1000,0);
+        value_deficit.textContent = Math.round((deficit / 11) / -1000,0);
+        value_full.textContent = Math.round((full / 11), 0);
+        value_empty.textContent = Math.round((empty / 11), 0);
         // console.timeEnd("Draw")
     }
 

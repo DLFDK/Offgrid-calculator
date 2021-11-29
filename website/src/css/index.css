@@ -166,13 +166,22 @@ main > * {
 .chart__summary {
   color: white;
   grid-area: summary;
-  display: grid;
   padding-left: 16px;
-  min-width: 210px;
+}
+.chart__summary-title {
+  font-size: 0.8rem;
+  font-weight: normal;
+  opacity: 0.6;
+  text-transform: uppercase;
+  padding-bottom: 4px;
+}
+.chart__stats {
+  display: grid;
   row-gap: 16px;
+  min-width: 210px;
 }
 @media (max-width: 600px) {
-  .chart__summary {
+  .chart__stats {
     grid-template-columns: 1fr 1fr;
     column-gap: 24px;
   }

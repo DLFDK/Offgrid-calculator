@@ -1,17 +1,3 @@
-:root {
-  --color_background: #202124;
-  --color_display: #fff;
-  --font-size_small: 1.2rem;
-  --font-size_medium: 1.5rem;
-  --font-size_large: 2rem;
-  --font-size_x-large: 2.5rem;
-  --font-size_xx-large: 3rem;
-  --font-weight_thin: 200;
-  --font-weight_light: 300;
-  --font-weight_regular: 400;
-  --font-weight_bold: 600;
-}
-
 *,
 *::before,
 *::after {
@@ -23,7 +9,7 @@
 }
 
 body {
-  background-color: var(--color_background);
+  background-color: #202124;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
@@ -39,9 +25,8 @@ select {
 }
 
 main {
-  --grid-content-columns: minmax(0px, 1fr) minmax(320px, 1080px) minmax(0px, 1fr);
   display: grid;
-  grid-template-columns: var(--grid-content-columns);
+  grid-template-columns: minmax(0px, 1fr) minmax(320px, 1080px) minmax(0px, 1fr);
   padding: 20px;
 }
 main > * {

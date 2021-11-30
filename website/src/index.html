@@ -86,22 +86,22 @@
                     <div class="chart__stats">
                         <div class="chart__stat">
                             <p class="chart__parameter-name">Energy Deficit</p>
-                            <p class="chart__value"><span class="chart__number" id="deficitValue">192095</span> kWh</p>
+                            <p class="chart__value"><span class="chart__number" id="chart__deficit">192095</span> kWh</p>
                             <div class="chart__separator"></div>
                         </div>
                         <div class="chart__stat">
                             <p class="chart__parameter-name">Empty Storage</p>
-                            <p class="chart__value"><span class="chart__number" id="emptyValue">192095</span> days</p>
+                            <p class="chart__value"><span class="chart__number" id="chart__empty">192095</span> days</p>
                             <div class="chart__separator"></div>
                         </div>
                         <div class="chart__stat">
                             <p class="chart__parameter-name">Energy Surplus</p>
-                            <p class="chart__value"><span class="chart__number" id="surplusValue">192095</span> kWh</p>
+                            <p class="chart__value"><span class="chart__number" id="chart__surplus">192095</span> kWh</p>
                             <div class="chart__separator"></div>
                         </div>
                         <div class="chart__stat">
                             <p class="chart__parameter-name">Full Storage</p>
-                            <p class="chart__value"><span class="chart__number" id="fullValue">192095</span> days</p>
+                            <p class="chart__value"><span class="chart__number" id="chart__full">192095</span> days</p>
                             <div class="chart__separator"></div>
                         </div>
                     </div>
@@ -113,23 +113,23 @@
             <div class="controls">
                 <div class="controls__range">
                     <p class="controls__parameter-name">Collector Area</p>
-                    <p class="controls__value"><span class="controls__number" id="solarValue">20</span> m<sup>2</sup></p>
-                    <input class="controls__input" id="solar" type="range" min="10" max="50" value="20" />
+                    <p class="controls__value"><span class="controls__number" id="controls__solar">20</span> m<sup>2</sup></p>
+                    <input class="controls__input" id="solar" type="range" min="10" max="50" value="20" factor="1"/>
                 </div>
                 <div class="controls__range">
                     <p class="controls__parameter-name">Collector Efficiency</p>
-                    <p class="controls__value"><span class="controls__number" id="efficiencyValue">60</span> %</p>
-                    <input class="controls__input" id="efficiency" type="range" min="10" max="100" value="60" />
+                    <p class="controls__value"><span class="controls__number" id="controls__efficiency">60</span> %</p>
+                    <input class="controls__input" id="efficiency" type="range" min="10" max="100" value="60" factor="100"/>
                 </div>
                 <div class="controls__range">
                     <p class="controls__parameter-name">Whole House Heat Transfer Coefficient</p>
-                    <p class="controls__value"><span class="controls__number" id="htcValue">250</span> <sup>W</sup>/<sub>&deg;C</sub></p>
-                    <input class="controls__input" id="htc" type="range" min="10" max="300" value="250" />
+                    <p class="controls__value"><span class="controls__number" id="controls__htc">250</span> <sup>W</sup>/<sub>&deg;C</sub></p>
+                    <input class="controls__input" id="htc" type="range" min="10" max="300" value="250" factor="1"/>
                 </div>
                 <div class="controls__range">
                     <p class="controls__parameter-name">Storage Capacity</p>
-                    <p class="controls__value"><span class="controls__number" id="storageValue">50</span> kWh</p>
-                    <input class="controls__input" id="storage" type="range" min="10" max="200" value="50" />
+                    <p class="controls__value"><span class="controls__number" id="controls__storage">50</span> kWh</p>
+                    <input class="controls__input" id="storage" type="range" min="10" max="200" value="50" factor="1"/>
                 </div>
             </div>
             <div class="description">

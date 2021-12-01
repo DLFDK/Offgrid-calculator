@@ -26,6 +26,7 @@ async function main() {
     }
 
     const parameters = {
+        numOfYears: 11,
         indoorT: 22, // degC
         solar: 20, // m2
         efficiency: 0.6, // Fraction
@@ -88,10 +89,10 @@ async function main() {
             const y = baseline - (state[i + 1] / 1000) * scaleFactorHeight
             ctx.fillRect(x, y, pointSize, pointSize);
         }
-        stats["surplus"].textContent = Math.round((surplus / 11) / 1000, 0);
-        stats["deficit"].textContent = Math.round((deficit / 11) / -1000, 0);
-        stats["full"].textContent = Math.round((full / 11), 0);
-        stats["empty"].textContent = Math.round((empty / 11), 0);
+        stats["surplus"].textContent = Math.round((surplus / parameters["numOfYears"]) / 1000, 0);
+        stats["deficit"].textContent = Math.round((deficit / parameters["numOfYears"]) / -1000, 0);
+        stats["full"].textContent = Math.round((full / parameters["numOfYears"]), 0);
+        stats["empty"].textContent = Math.round((empty / parameters["numOfYears"]), 0);
     }
 
     // function drawOptimized() {

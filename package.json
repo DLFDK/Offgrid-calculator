@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DLFDK/Template_website_v1.git"
+    "url": "git+https://github.com/DLFDK/CanonOffgrid.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/DLFDK/Template_website_v1/issues"
+    "url": "https://github.com/DLFDK/CanonOffgrid/issues"
   },
-  "homepage": "https://github.com/DLFDK/Template_website_v1#readme",
+  "homepage": "https://github.com/DLFDK/CanonOffgrid#readme",
   "devDependencies": {
     "browser-sync": "^2.26.7",
     "chokidar": "^3.4.3",

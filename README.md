@@ -33,7 +33,7 @@ The indoor temperature is set at 22 °C. Change it in main.js with the `IndoorT`
 
 At the simulation outset, the energy-storage is full. The net-gain (or loss) for each day is then added to the storage, either increasing or decreasing its level. The storage level is not allowed to exceed the chosen maximum or fall below 0 kWh
 
-Storage<sub>tomorrow</sub> *Wh* = Energy<sub>gain</sub> *Wh* + Energy<sub>loss</sub> *Wh* + Storage<sub>today</sub> *Wh*
+> Storage<sub>tomorrow</sub> *Wh* = Energy<sub>gain</sub> *Wh* + Energy<sub>loss</sub> *Wh* + Storage<sub>today</sub> *Wh*
 
 Due to the model's simplicity there's naturally a long list of factors which it does not account for.
 

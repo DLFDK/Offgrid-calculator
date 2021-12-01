@@ -12,9 +12,7 @@ function inline() {
         return;
     }
 
-    html = html.replace('<link rel="stylesheet" href="css/index.css">', `<style>${css}</style>`);
-    html = html.replace('<script defer src="js/index.js"></script>', `<script>${js}</script>`);
+    html = html.replace('<link rel="stylesheet" href="css/index.css" />', `<style>${css}</style>`);
+    html = html.replace('<script src="js/index.js"></script>', `<script>${js}</script>`);
     fs.writeFileSync("website/dist/index.html", html, "utf8")
-    // fs.rmdirSync("website/dist/css", { recursive: true });
-    // fs.rmdirSync("website/dist/js", { recursive: true });
 }

@@ -31,7 +31,7 @@ async function main() {
         solar: 20, // m2
         efficiency: 0.6, // Fraction
         htc: 250, // W/degC
-        storage: 50 // kWh
+        storage: 200 // kWh
     };
     
     canvas.width = container.offsetWidth;

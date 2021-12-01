@@ -28,7 +28,7 @@ async function main() {
         solar: 20,
         efficiency: .6,
         htc: 250,
-        storage: 50
+        storage: 200
     };
     canvas.width = container.offsetWidth;
     canvas.height = container.offsetHeight;

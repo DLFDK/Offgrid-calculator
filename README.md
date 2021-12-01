@@ -2,6 +2,8 @@
 
 Super simple calculator for visualizing and estimating the prospects for going off-grid.
 
+[Hosted on Netlify](https://off-grid-calculator.netlify.app)
+
 Based on solar radiation data from [NSRDB](https://nsrdb.nrel.gov/) as collected by [NREL](https://www.nrel.gov/). Data acquired via [PVGIS](https://ec.europa.eu/jrc/en/pvgis)
 
 At last commit set up for the location of Cañon City, Colorado, USA. Other datasets can be used with appropiate changes. The calculator assumes the data cover 11 years of daily measurements - to use a different length, change the `numOfYears` parameter in main.js. 

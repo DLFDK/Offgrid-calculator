@@ -62,11 +62,11 @@ async function develop() {
 
     function server() {
         const proxy = createProxyMiddleware('/api', {
-            target: 'https://google.com',
+            target: 'https://re.jrc.ec.europa.eu/',
             changeOrigin: true,
-            pathRewrite: {
-                '^/api*': '/' // remove base path
-            }
+            // pathRewrite: {
+            //     '^/api*': '/' // remove base path
+            // }
         });
 
         browserSync.init({

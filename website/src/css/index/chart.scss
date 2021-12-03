@@ -1,9 +1,10 @@
 .chart {
     --tick-color: rgba(255, 255, 255, 0.2);
     --label-color: rgba(255, 255, 255, 0.8);
+    opacity: 0.8;
     width: 100%;
     display: grid;
-    grid: auto 1fr 20px / 60px 1fr auto;
+    grid: auto 1fr 20px auto / 60px 1fr auto;
     padding-top: 24px;
     grid-template-areas:
         ". header header"
@@ -13,6 +14,7 @@
 
     @media (max-width: 600px) {
         padding: 24px 16px 0px 0px;
+        // grid-template-rows: auto minmax(50vh, 1fr) 20px auto;
         grid-template-areas:
             ". header"
             "y-axis canvas"
@@ -40,17 +42,18 @@
 
     &__header {
         grid-area: header;
-        padding-bottom: 4px;
+        padding-bottom: 8px;
+        font-size: clamp(10px, 2.5vw, 16px);
     }
 
-    &__title {
-        color: #ffc914;
-    }
+    // &__title {
+    //     color: #ffc914;
+    // }
 
-    &__location {
-        color: white;
-        opacity: 0.5;
-    }
+    // &__location {
+    //     color: white;
+    //     opacity: 0.5;
+    // }
 
     &__explainer {
         color: white;
@@ -110,8 +113,6 @@
 
     &__origin {
         grid-area: origin;
-        grid-row: 3;
-        grid-column: 1;
         border-top: 2px solid var(--tick-color);
         border-right: 2px solid var(--tick-color);
         border-top-right-radius: 4px;
@@ -196,14 +197,14 @@
         font-size: 12px;
         padding-top: 8px;
 
-        a:link {
-            color: #84cae7;
-        }
+        // a:link {
+        //     color: #84cae7;
+        // }
 
-        a:visited {
-            color: #4ce0d2;
-            position: relative;
-            top: 2px;
-        }
+        // a:visited {
+        //     color: #4ce0d2;
+        //     position: relative;
+        //     top: 2px;
+        // }
     }
 }

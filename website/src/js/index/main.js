@@ -2,41 +2,34 @@ main();
 async function main() {
     // const URL = "api/seriescalc?lat=38.441&lon=-105.243&browser=1&outputformat=json&usehorizon=1&angle=62&startyear=2005&endyear=2015";
     const localURL = "js/raw-data.json"
-    // const rawData = await fetch(localURL).then(response => response.json());
-    // const data = formatData(rawData);
+    const rawData = await fetch(localURL).then(response => response.json());
+    const data = formatData(rawData);
 
     const dataPicker = {
-        fetchButton: document.getElementById("data-picker__button"),
-        latitudeInput: document.getElementById("data-picker__latitude"),
-        longitudeInput: document.getElementById("data-picker__longitude"),
-        angleInput: document.getElementById("data-picker__angle")
+        button: document.getElementById("data-picker__button"),
+        latitude: document.getElementById("data-picker__latitude"),
+        longitude: document.getElementById("data-picker__longitude"),
+        angle: document.getElementById("data-picker__angle")
     }
 
-    let data = {};
-    dataPicker["fetchButton"].addEventListener("click", async (event) => {
-        const latitude = dataPicker["latitudeInput"].value;
-        const longitude = dataPicker["longitudeInput"].value;
-        const angle = dataPicker["angleInput"].value;
-        const URL = `api/seriescalc?lat=${latitude}&lon=${longitude}&browser=1&outputformat=json&usehorizon=1&angle=${angle}2&startyear=2005&endyear=2005`;
-        const rawData = await fetch(localURL).then(response => response.json());
-        data = formatData(rawData);
-        draw();
-        console.log(data);
-    })
+    // let data = {};
+    // dataPicker["button"].addEventListener("click", async (event) => {
+    //     const latitude = dataPicker["latitude"].value;
+    //     const longitude = dataPicker["longitude"].value;
+    //     const angle = dataPicker["angle"].value;
+    //     const URL = `api/seriescalc?lat=${latitude}&lon=${longitude}&browser=1&outputformat=json&usehorizon=1&angle=${angle}2&startyear=2005&endyear=2005`;
+    //     const rawData = await fetch(localURL).then(response => response.json());
+    //     data = formatData(rawData);
+    //     draw();
+    //     console.log(data);
+    // })
 
-    // console.log(data);
-
-    // console.time("Format");
-    // for (let i = 0; i < 1000; i++) {
-    //     const formattedData = formatData(rawData);
-    // }
-    // console.timeEnd("Format");
-
-    // console.log(formattedData);
-    // return;
     const container = document.getElementById("chart__canvas-container");
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext('2d');
+
+    
+    // return;
 
     const ranges = {
         solar: document.getElementById("solar"),
@@ -68,13 +61,19 @@ async function main() {
         storage: 200 // kWh
     };
 
-    canvas.width = container.offsetWidth;
-    canvas.height = container.offsetHeight;
+    const scale = window.devicePixelRatio;
+    // console.log(container.offsetWidth, container.offsetHeight);
+    // console.log(container.getBoundingClientRect());
+    canvas.style.height = container.offsetHeight + "px";
+    canvas.style.width = container.offsetWidth + "px";
+    // console.log(container.offsetWidth, container.offsetHeight);
+    // return;
+    canvas.width = Math.floor(container.offsetWidth * scale);
+    canvas.height = Math.floor(container.offsetHeight * scale);
+    ctx.scale(scale, scale);
     const pointSize = 2;
-    const baseline = canvas.height - pointSize;
-    const scaleFactorWidth = (canvas.width - pointSize) / 365;
-
-    // const data = await fetch("js/data.json").then(response => response.json());
+    const baseline = container.offsetHeight - pointSize;
+    const scaleFactorWidth = (container.offsetWidth - pointSize) / 365;
 
     for (const [name, range] of Object.entries(ranges)) {
         range.addEventListener("input", event => {
@@ -84,7 +83,7 @@ async function main() {
         })
     }
 
-    // draw();
+    draw();
 
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);

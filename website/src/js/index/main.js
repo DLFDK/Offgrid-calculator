@@ -59,9 +59,10 @@ async function main() {
         const latitude = dataPicker["latitude"].value;
         const longitude = dataPicker["longitude"].value;
         const angle = dataPicker["angle"].value;
-        const URL = `api/seriescalc?lat=${latitude}&lon=${longitude}&browser=1&outputformat=json&usehorizon=1&angle=${angle}1&startyear=2005&endyear=2005`;
+        const URL = `https://off-grid.dlfdk.workers.dev/api/seriescalc?lat=${latitude}&lon=${longitude}&browser=1&outputformat=json&usehorizon=1&angle=${angle}1&startyear=2005&endyear=2005`;
         // const errorURL = "js/error.json";
         const rawData = await fetch(URL).then(response => response.json());
+        console.log(rawData);
         if(rawData["message"]) {
             state.set("error", rawData["message"]);
         } else {

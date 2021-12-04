@@ -70,9 +70,9 @@ async function develop() {
             server: {
                 baseDir: './website/src/',
                 port: 3000,
-                middleware: [
-                    proxy
-                ]
+                // middleware: [
+                //     proxy
+                // ]
             },
             startPath: '/'
         });

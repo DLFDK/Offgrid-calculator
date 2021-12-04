@@ -2,8 +2,6 @@ main();
 
 async function main() {
     const localURL = "js/raw-data.json";
-    const rangers = document.getElementsByClassName("controls__input");
-    console.log(rangers);
     const state = {
         root: document.documentElement,
         title: document.getElementById("overlay__title"),
@@ -15,7 +13,6 @@ async function main() {
         state: "unloaded",
         set(newState, message) {
             this.state = newState;
-            console.log(`Set state: ${this.state}`);
             switch (newState) {
               case "fetching":
                 this.title.textContent = this.fetchingText;
@@ -43,31 +40,18 @@ async function main() {
             }
         }
     };
+    const stats = {
+        deficit: document.getElementById("chart__deficit"),
+        empty: document.getElementById("chart__empty"),
+        surplus: document.getElementById("chart__surplus"),
+        full: document.getElementById("chart__full")
+    };
     const dataPicker = {
         button: document.getElementById("data-picker__button"),
         latitude: document.getElementById("data-picker__latitude"),
         longitude: document.getElementById("data-picker__longitude"),
         angle: document.getElementById("data-picker__angle")
     };
-    let data = {};
-    dataPicker["button"].addEventListener("click", (async event => {
-        state.set("fetching");
-        const latitude = dataPicker["latitude"].value;
-        const longitude = dataPicker["longitude"].value;
-        const angle = dataPicker["angle"].value;
-        const URL = `api/seriescalc?lat=${latitude}&lon=${longitude}&browser=1&outputformat=json&usehorizon=1&angle=${angle}1&startyear=2005&endyear=2005`;
-        const rawData = await fetch(URL).then((response => response.json()));
-        if (rawData["message"]) {
-            state.set("error", rawData["message"]);
-        } else {
-            data = formatData(rawData);
-            draw();
-            state.set("loaded");
-        }
-    }));
-    const container = document.getElementById("chart__canvas-container");
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
     const parameters = {
         numOfYears: {
             value: 11
@@ -114,12 +98,9 @@ async function main() {
             }
         }));
     }
-    const stats = {
-        deficit: document.getElementById("chart__deficit"),
-        empty: document.getElementById("chart__empty"),
-        surplus: document.getElementById("chart__surplus"),
-        full: document.getElementById("chart__full")
-    };
+    const container = document.getElementById("chart__canvas-container");
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
     const scale = window.devicePixelRatio;
     canvas.style.height = container.offsetHeight + "px";
     canvas.style.width = container.offsetWidth + "px";
@@ -129,6 +110,22 @@ async function main() {
     const pointSize = 2;
     const baseline = container.offsetHeight - pointSize;
     const scaleFactorWidth = (container.offsetWidth - pointSize) / 365;
+    let data = {};
+    dataPicker["button"].addEventListener("click", (async () => {
+        state.set("fetching");
+        const latitude = dataPicker["latitude"].value;
+        const longitude = dataPicker["longitude"].value;
+        const angle = dataPicker["angle"].value;
+        const URL = localURL;
+        const rawData = await fetch(URL).then((response => response.json()));
+        if (rawData["message"]) {
+            state.set("error", rawData["message"]);
+        } else {
+            data = formatData(rawData);
+            draw();
+            state.set("loaded");
+        }
+    }));
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = "#4CE0D2";
@@ -164,25 +161,24 @@ async function main() {
         stats["full"].textContent = Math.round(full / parameters["numOfYears"].value);
         stats["empty"].textContent = Math.round(empty / parameters["numOfYears"].value);
     }
-}
-
-function formatData(rawData) {
-    const {inputs: {meteo_data: {radiation_db: database}}, outputs: {hourly: data}} = rawData;
-    const numOfDays = Math.round(data.length / 24);
-    const formattedData = {
-        Energy: [],
-        Temperature: []
-    };
-    for (let i = 0; i < numOfDays; i++) {
-        let dailySolarSum = 0;
-        let dailyTempSum = 0;
-        for (let j = i * 24; j < (i + 1) * 24; j++) {
-            dailySolarSum += data[j]["G(i)"];
-            dailyTempSum += data[j]["T2m"];
+    function formatData(rawData) {
+        const {inputs: {meteo_data: {radiation_db: database}}, outputs: {hourly: data}} = rawData;
+        const numOfDays = Math.round(data.length / 24);
+        const formattedData = {
+            Energy: [],
+            Temperature: []
+        };
+        for (let i = 0; i < numOfDays; i++) {
+            let dailySolarSum = 0;
+            let dailyTempSum = 0;
+            for (let j = i * 24; j < (i + 1) * 24; j++) {
+                dailySolarSum += data[j]["G(i)"];
+                dailyTempSum += data[j]["T2m"];
+            }
+            formattedData["Energy"].push(Math.round(dailySolarSum));
+            formattedData["Temperature"].push(dailyTempSum / 24);
         }
-        formattedData["Energy"].push(Math.round(dailySolarSum));
-        formattedData["Temperature"].push(dailyTempSum / 24);
+        return formattedData;
     }
-    return formattedData;
 }
 //# sourceMappingURL=index.js.map

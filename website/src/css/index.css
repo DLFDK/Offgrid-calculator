@@ -1,3 +1,22 @@
+:root {
+  --state__calculator--opacity: 0.5;
+  --state__overlay--opacity: 1;
+  --state__fetching--opacity: 1;
+}
+
+.state__calculator {
+  transition: opacity 0.5s ease;
+  opacity: var(--state__calculator--opacity);
+}
+.state__overlay {
+  transition: opacity 0.5s ease;
+  opacity: var(--state__overlay--opacity);
+}
+.state__fetching {
+  transition: opacity 0.5s ease;
+  opacity: var(--state__fetching--opacity);
+}
+
 *,
 *::before,
 *::after {
@@ -427,6 +446,23 @@ main > * {
   color: #4ce0d2;
   position: relative;
   top: 2px;
+}
+
+.overlay {
+  grid-area: canvas;
+  place-self: center;
+  color: white;
+  z-index: 1;
+  border-bottom: 2px solid #ffc914;
+  width: 80%;
+}
+.overlay__title {
+  font-size: clamp(1rem, 3vw, 2rem);
+  text-align: center;
+  padding-bottom: 10px;
+}
+.overlay__text {
+  font-size: clamp(0.8rem, 2vw, 1.5rem);
 }
 
 /*# sourceMappingURL=index.css.map */

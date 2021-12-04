@@ -1,0 +1,18 @@
+.overlay {
+    grid-area: canvas;
+    place-self: center;
+    color: white;
+    z-index: 1;
+    border-bottom: 2px solid #ffc914;
+    width: 80%;
+    
+    &__title {
+        font-size: clamp(1rem, 3vw, 2rem);
+        text-align: center;
+        padding-bottom: 10px;
+    }
+
+    &__text {
+        font-size: clamp(0.8rem, 2vw, 1.5rem);
+    }
+}

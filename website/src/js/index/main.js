@@ -2,8 +2,49 @@ main();
 async function main() {
     // const URL = "api/seriescalc?lat=38.441&lon=-105.243&browser=1&outputformat=json&usehorizon=1&angle=62&startyear=2005&endyear=2015";
     const localURL = "js/raw-data.json"
-    const rawData = await fetch(localURL).then(response => response.json());
-    const data = formatData(rawData);
+    // const rawData = await fetch(localURL).then(response => response.json());
+    // const data = formatData(rawData);
+
+    const rangers = document.getElementsByClassName("controls__input");
+    console.log(rangers);
+
+    const state = {
+        root: document.documentElement,
+        title: document.getElementById("overlay__title"),
+        text: document.getElementById("overlay__text"),
+        loadedText: "Success!",
+        unloadedText: "Pick a location to get started",
+        fetchingText: "Fetching, please wait...",
+        errorText = "Oops! Looks like there was an error fetching the data",
+        state: "unloaded",
+        set(newState, message) {
+            this.state = newState;
+            console.log(`Set state: ${this.state}`);
+            switch(newState) {
+                case "fetching":
+                    this.title.textContent = this.fetchingText;
+                    this.text.textContent = "";
+                    this.root.style.setProperty("--state__fetching--opacity", 0.5);
+                    this.root.style.setProperty("--state__calculator--opacity", 0.5);
+                    this.root.style.setProperty("--state__overlay--opacity", 1);
+                    break;
+                case "loaded":
+                    this.title.textContent = this.loadedText;
+                    this.text.textContent = "";
+                    this.root.style.setProperty("--state__fetching--opacity", 1);
+                    this.root.style.setProperty("--state__calculator--opacity", 1);
+                    this.root.style.setProperty("--state__overlay--opacity", 0);
+                    break;
+                case "error":
+                    this.title.textContent = this.errorText;
+                    this.text.textContent = message;
+                    this.root.style.setProperty("--state__fetching--opacity", 1);
+                    this.root.style.setProperty("--state__calculator--opacity", 0.5);
+                    this.root.style.setProperty("--state__overlay--opacity", 1);
+                    break;
+            }
+        }
+    }
 
     const dataPicker = {
         button: document.getElementById("data-picker__button"),
@@ -12,38 +53,108 @@ async function main() {
         angle: document.getElementById("data-picker__angle")
     }
 
-    // let data = {};
-    // dataPicker["button"].addEventListener("click", async (event) => {
-    //     const latitude = dataPicker["latitude"].value;
-    //     const longitude = dataPicker["longitude"].value;
-    //     const angle = dataPicker["angle"].value;
-    //     const URL = `api/seriescalc?lat=${latitude}&lon=${longitude}&browser=1&outputformat=json&usehorizon=1&angle=${angle}2&startyear=2005&endyear=2005`;
-    //     const rawData = await fetch(localURL).then(response => response.json());
-    //     data = formatData(rawData);
-    //     draw();
-    //     console.log(data);
-    // })
+    let data = {};
+    dataPicker["button"].addEventListener("click", async (event) => {
+        state.set("fetching");
+        const latitude = dataPicker["latitude"].value;
+        const longitude = dataPicker["longitude"].value;
+        const angle = dataPicker["angle"].value;
+        const URL = `api/seriescalc?lat=${latitude}&lon=${longitude}&browser=1&outputformat=json&usehorizon=1&angle=${angle}1&startyear=2005&endyear=2005`;
+        // const errorURL = "js/error.json";
+        const rawData = await fetch(URL).then(response => response.json());
+        if(rawData["message"]) {
+            state.set("error", rawData["message"]);
+        } else {
+            data = formatData(rawData);
+            draw();
+            state.set("loaded");
+        }
+
+    })
+
+    // function timeout(ms) {
+    //     return new Promise(resolve => setTimeout(resolve, ms));
+    // }
 
     const container = document.getElementById("chart__canvas-container");
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext('2d');
 
-    
-    // return;
-
-    const ranges = {
-        solar: document.getElementById("solar"),
-        efficiency: document.getElementById("efficiency"),
-        htc: document.getElementById("htc"),
-        storage: document.getElementById("storage")
+    const parameters = {
+        numOfYears: {
+            value: 11
+        },
+        indoorT: {// degC
+            value: 22
+        },
+        solar: { // m2
+            min: 10,
+            max: 50,
+            value: 30,
+            step: 1
+        },
+        efficiency: {// Fraction
+            min: 10,
+            max: 100,
+            value: 60,
+            step: 1
+        },
+        htc: {// W/degC
+            min: 10,
+            max: 300,
+            value: 250,
+            step: 5
+        },
+        storage: {// kWh
+            min: 10,
+            max: 1000,
+            value: 200,
+            step: 10
+        }
     };
 
-    const rangeValues = {
-        solar: document.getElementById("controls__solar"),
-        efficiency: document.getElementById("controls__efficiency"),
-        htc: document.getElementById("controls__htc"),
-        storage: document.getElementById("controls__storage"),
+    // const ranges = {
+    //     solar: document.getElementById("solar"),
+    //     efficiency: document.getElementById("efficiency"),
+    //     htc: document.getElementById("htc"),
+    //     storage: document.getElementById("storage")
+    // };
+
+    // const rangeValues = {
+    //     solar: document.getElementById("controls__solar"),
+    //     efficiency: document.getElementById("controls__efficiency"),
+    //     htc: document.getElementById("controls__htc"),
+    //     storage: document.getElementById("controls__storage"),
+    // }
+
+    for (const range of document.getElementsByClassName("controls__input")) {
+        range.min = parameters[range.id].min;
+        range.max = parameters[range.id].max;
+        range.step = parameters[range.id].step;
+        range.value = parameters[range.id].default;
+        // range.disabled = true;
+        document.getElementById(`controls__${range.id}`).textContent = parameters[range.id].value;
+        range.addEventListener("input", event => {
+            document.getElementById(`controls__${range.id}`).textContent = event.target.value;
+            parameters[range.id].value = event.target.value;
+            if(state.state === "loaded") {
+                draw();
+            }
+        })
     }
+
+    // for (const [name, range] of Object.entries(ranges)) {
+    //     range.min = parameters[name].min;
+    //     range.max = parameters[name].max;
+    //     range.step = parameters[name].step;
+    //     range.value = parameters[name].default;
+    //     rangeValues[name].textContent = parameters[name].value;
+    //     range.addEventListener("input", event => {
+    //         rangeValues[name].textContent = event.target.value;
+    //         parameters[name].value = event.target.value;
+    //         draw();
+    //     })
+    // }
 
     const stats = {
         deficit: document.getElementById("chart__deficit"),
@@ -52,14 +163,7 @@ async function main() {
         full: document.getElementById("chart__full")
     }
 
-    const parameters = {
-        numOfYears: 11,
-        indoorT: 22, // degC
-        solar: 20, // m2
-        efficiency: 0.6, // Fraction
-        htc: 250, // W/degC
-        storage: 200 // kWh
-    };
+
 
     const scale = window.devicePixelRatio;
     // console.log(container.offsetWidth, container.offsetHeight);
@@ -75,26 +179,28 @@ async function main() {
     const baseline = container.offsetHeight - pointSize;
     const scaleFactorWidth = (container.offsetWidth - pointSize) / 365;
 
-    for (const [name, range] of Object.entries(ranges)) {
-        range.addEventListener("input", event => {
-            rangeValues[name].textContent = event.target.value;
-            parameters[name] = event.target.value / event.target.getAttribute("factor");
-            draw();
-        })
-    }
+    // for (const [name, range] of Object.entries(ranges)) {
+    //     range.addEventListener("input", event => {
+    //         rangeValues[name].textContent = event.target.value;
+    //         parameters[name] = event.target.value / event.target.getAttribute("factor");
+    //         draw();
+    //     })
+    // }
 
-    draw();
+    // draw();
 
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         ctx.fillStyle = '#4CE0D2';
 
-        const state = [];
-        const limit = parameters["storage"] * 1000;
-        state.push(limit);
+        // console.log(parameters);
 
-        const scaleFactorHeight = baseline / parameters["storage"];
+        const output = [];
+        const limit = parameters["storage"].value * 1000;
+        output.push(limit);
+
+        const scaleFactorHeight = baseline / parameters["storage"].value;
 
         let deficit = 0;
         let empty = 0;
@@ -102,30 +208,30 @@ async function main() {
         let full = 0;
 
         for (let i = 0; i < data["Energy"].length; i++) {
-            const gain = parameters["solar"] * data["Energy"][i] * parameters["efficiency"];
-            const loss = Math.min(parameters["htc"] * (data["Temperature"][i] - parameters["indoorT"]) * 24, 0);
-            const result = gain + loss + state[i];
+            const gain = parameters["solar"].value * data["Energy"][i] * (parameters["efficiency"].value / 100);
+            const loss = Math.min(parameters["htc"].value * (data["Temperature"][i] - parameters["indoorT"].value) * 24, 0);
+            const result = gain + loss + output[i];
 
             if (result > limit) {
-                state.push(limit)
+                output.push(limit)
                 full++;
                 surplus += result - limit;
             } else if (result < 0) {
-                state.push(0)
+                output.push(0)
                 empty++;
                 deficit += result;
             } else {
-                state.push(result)
+                output.push(result)
             }
 
             const x = i % 365 * scaleFactorWidth;
-            const y = baseline - (state[i + 1] / 1000) * scaleFactorHeight
+            const y = baseline - (output[i + 1] / 1000) * scaleFactorHeight
             ctx.fillRect(x, y, pointSize, pointSize);
         }
-        stats["surplus"].textContent = Math.round((surplus / parameters["numOfYears"]) / 1000);
-        stats["deficit"].textContent = Math.round((deficit / parameters["numOfYears"]) / -1000);
-        stats["full"].textContent = Math.round((full / parameters["numOfYears"]));
-        stats["empty"].textContent = Math.round((empty / parameters["numOfYears"]));
+        stats["surplus"].textContent = Math.round((surplus / parameters["numOfYears"].value) / 1000);
+        stats["deficit"].textContent = Math.round((deficit / parameters["numOfYears"].value) / -1000);
+        stats["full"].textContent = Math.round((full / parameters["numOfYears"].value));
+        stats["empty"].textContent = Math.round((empty / parameters["numOfYears"].value));
     }
 }
 

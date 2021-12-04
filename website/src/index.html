@@ -9,22 +9,30 @@
         <title>Off-grid Calculator</title>
     </head>
     <body>
+        <div id="state" class="state"></div>
         <main>
             <header class="site-header">
                 <div class="site-header__header">
                     <h1 class="site-header__title">Off-grid Calculator</h1>
-                    <!-- <p class="site-header__location">Canon City, (38.44, -105.22)</p> -->
-                    <!-- <p class="site-header__explainer">Each dot indicates the energy storage level on that day (1/1-2005 to 12/31-2015)</p> -->
                 </div>
             </header>
             <div class="data-picker">
-                <div class="data-picker__container"><label class="data-picker__label" for="data-picker__latitude">Latitude</label><p class="data-picker__limits">&#177;90</p></div>
+                <div class="data-picker__container">
+                    <label class="data-picker__label" for="data-picker__latitude">Latitude</label>
+                    <p class="data-picker__limits">&#177;90</p>
+                </div>
                 <input class="data-picker__input" type="number" name="latitude" id="data-picker__latitude" min="-90" max="90" step="0.001" value="38.441" />
-                <div class="data-picker__container"><label class="data-picker__label" for="data-picker__longitude">Longitude</label><p class="data-picker__limits">&#177;180</p></div>
+                <div class="data-picker__container">
+                    <label class="data-picker__label" for="data-picker__longitude">Longitude</label>
+                    <p class="data-picker__limits">&#177;180</p>
+                </div>
                 <input class="data-picker__input" type="number" name="longitude" id="data-picker__longitude" min="-180" max="180" step="0.001" value="-105.243" />
-                <div class="data-picker__container"><label class="data-picker__label" for="data-picker__angle">Panel Angle</label><p class="data-picker__limits">0-90</p></div>
+                <div class="data-picker__container">
+                    <label class="data-picker__label" for="data-picker__angle">Panel Angle</label>
+                    <p class="data-picker__limits">0-90</p>
+                </div>
                 <input class="data-picker__input" type="number" name="angle" id="data-picker__angle" min="0" max="90" step="1" value="62" />
-                <button class="data-picker__button" id="data-picker__button">
+                <button class="data-picker__button state__fetching" id="data-picker__button">
                     <p class="data-picker__button-text">Fetch Data</p>
                     <svg class="data-picker__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
@@ -33,12 +41,10 @@
                 <!-- <p class="data-picker__disclaimer">The location is shared with <a href="https://ec.europa.eu/jrc/en/pvgis">PVGIS</a> for retrieval of insolation data</p> -->
             </div>
             <div class="chart">
-                <div class="chart__header">
-                    <!-- <h1 class="chart__title">Off-grid Calculator</h1>
-                    <p class="chart__location">Canon City, (38.44, -105.22)</p> -->
+                <div class="chart__header state__calculator">
                     <p class="chart__explainer">Each dot indicates the energy storage level on that day (1/1-2005 to 12/31-2015)</p>
                 </div>
-                <div class="chart__y-axis">
+                <div class="chart__y-axis state__calculator">
                     <p>100%</p>
                     <p>75%</p>
                     <p>50%</p>
@@ -48,7 +54,7 @@
                     <div></div>
                     <div></div>
                 </div>
-                <div class="chart__grid">
+                <div class="chart__grid state__calculator">
                     <div></div>
                     <div></div>
                     <div></div>
@@ -62,11 +68,11 @@
                     <div></div>
                     <div></div>
                 </div>
-                <div class="chart__canvas-container" id="chart__canvas-container">
+                <div class="chart__canvas-container state__calculator" id="chart__canvas-container">
                     <canvas id="canvas"></canvas>
                 </div>
-                <div class="chart__origin"></div>
-                <div class="chart__x-axis">
+                <div class="chart__origin state__calculator"></div>
+                <div class="chart__x-axis state__calculator">
                     <div>
                         <p>Jan</p>
                     </div>
@@ -104,7 +110,7 @@
                         <p>Dec</p>
                     </div>
                 </div>
-                <div class="chart__summary">
+                <div class="chart__summary state__calculator">
                     <h2 class="chart__summary-title">Annual average</h2>
                     <div class="chart__stats">
                         <div class="chart__stat">
@@ -129,30 +135,34 @@
                         </div>
                     </div>
                 </div>
-                <div class="chart__credit">
+                <div class="chart__credit state__calculator">
                     <p>Based on solar radiation data from <a href="https://nsrdb.nrel.gov/">NSRDB</a> as collected by <a href="https://www.nrel.gov/">NREL</a>. Data acquired via <a href="https://ec.europa.eu/jrc/en/pvgis">PVGIS</a></p>
                 </div>
+                <div class="overlay state__overlay">
+                    <h2 class="overlay__title" id="overlay__title">Pick a location to get started</h2>
+                    <p class="overlay__text" id="overlay__text"></p>
+                </div>
             </div>
-            <div class="controls">
+            <div class="controls state__calculator">
                 <div class="controls__range">
                     <label class="controls__parameter-name" for="solar">Collector Area</label>
-                    <p class="controls__value"><span class="controls__number" id="controls__solar">20</span> m<sup>2</sup></p>
-                    <input class="controls__input" id="solar" type="range" min="10" max="50" value="20" factor="1" />
+                    <p class="controls__value"><span class="controls__number" id="controls__solar"></span> m<sup>2</sup></p>
+                    <input class="controls__input" id="solar" type="range" />
                 </div>
                 <div class="controls__range">
                     <label class="controls__parameter-name" for="efficiency">Collector Efficiency</label>
-                    <p class="controls__value"><span class="controls__number" id="controls__efficiency">60</span> %</p>
-                    <input class="controls__input" id="efficiency" type="range" min="10" max="100" value="60" factor="100" />
+                    <p class="controls__value"><span class="controls__number" id="controls__efficiency"></span> %</p>
+                    <input class="controls__input" id="efficiency" type="range" />
                 </div>
                 <div class="controls__range">
                     <label class="controls__parameter-name" for="htc">Whole House Heat Transfer Coefficient</label>
-                    <p class="controls__value"><span class="controls__number" id="controls__htc">250</span> <sup>W</sup>/<sub>&deg;C</sub></p>
-                    <input class="controls__input" id="htc" type="range" min="10" max="300" value="250" factor="1" />
+                    <p class="controls__value"><span class="controls__number" id="controls__htc"></span> <sup>W</sup>/<sub>&deg;C</sub></p>
+                    <input class="controls__input" id="htc" type="range">
                 </div>
                 <div class="controls__range">
                     <label class="controls__parameter-name" for="storage">Storage Capacity</label>
-                    <p class="controls__value"><span class="controls__number" id="controls__storage">200</span> kWh</p>
-                    <input class="controls__input" id="storage" type="range" min="10" max="1000" value="200" factor="1" />
+                    <p class="controls__value"><span class="controls__number" id="controls__storage"></span> kWh</p>
+                    <input class="controls__input" id="storage" type="range" />
                 </div>
             </div>
             <div class="description">

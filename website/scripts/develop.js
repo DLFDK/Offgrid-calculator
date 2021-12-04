@@ -64,9 +64,6 @@ async function develop() {
         const proxy = createProxyMiddleware('/api', {
             target: 'https://re.jrc.ec.europa.eu/',
             changeOrigin: true,
-            // pathRewrite: {
-            //     '^/api*': '/' // remove base path
-            // }
         });
 
         browserSync.init({

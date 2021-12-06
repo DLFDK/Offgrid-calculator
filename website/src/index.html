@@ -38,7 +38,6 @@
                         <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
                     </svg>
                 </button>
-                <!-- <p class="data-picker__disclaimer">The location is shared with <a href="https://ec.europa.eu/jrc/en/pvgis">PVGIS</a> for retrieval of insolation data</p> -->
             </div>
             <div class="chart">
                 <div class="chart__header state__calculator">
@@ -136,7 +135,7 @@
                     </div>
                 </div>
                 <div class="chart__credit state__calculator">
-                    <p>Based on solar radiation data from <a href="https://nsrdb.nrel.gov/">NSRDB</a> as collected by <a href="https://www.nrel.gov/">NREL</a>. Data acquired via <a href="https://ec.europa.eu/jrc/en/pvgis">PVGIS</a></p>
+                    <p>Based on solar radiation acquired via <a href="https://ec.europa.eu/jrc/en/pvgis">PVGIS</a>. See below remarks for further details</p>
                 </div>
                 <div class="overlay state__overlay">
                     <h2 class="overlay__title" id="overlay__title">Pick a location to get started</h2>
@@ -168,10 +167,11 @@
             <div class="description">
                 <h2 class="description__title">The math behind it all</h2>
                 <div class="description__content">
-                    <p>The simulation is based on an extremely simple model with only a handful of inputs.</p>
-                    <p>The used dataset consists of 4017 datapoints covering the days between 1/1-2005 and 12/31-2015, with each datapoint having two values for that 24 hour period:</p>
+                    <p>The simulation is built on an extremely simple model with only a handful of inputs.</p>
+                    <p>It is based on solar radiation data acquired via <a href="https://ec.europa.eu/jrc/en/pvgis">PVGIS</a> and fetched through a Cloudflare Worker. See the <a href="https://ec.europa.eu/jrc/en/PVGIS/docs/usermanual">PVGIS users manual</a> for details on the used databases. PVGIS gets data on the Americas from <a href="https://nsrdb.nrel.gov/">NSRDB</a> as collected by <a href="https://www.nrel.gov/">NREL</a></p>
+                    <p>Each retrieved dataset consists of 96,408 datapoints covering the hours between 1/1-2005 and 12/31-2015. After retrieval, the data is remapped into 24 hour intervals. Each datapoint has two values for that 24 hour period:</p>
                     <ul class="description__list">
-                        <li>The total solar insolation (based on global irradiance) at the optimal angle for December at the given location</li>
+                        <li>The total solar insolation (based on global irradiance) at the chosen angle at the chosen location</li>
                         <li>The average outdoor temperature at a height of 2 meters</li>
                     </ul>
                     <p>The two values are used to calculate the energy-gain and energy-loss for that day.</p>

@@ -114,7 +114,11 @@ async function main() {
     const baseline = container.offsetHeight - pointSize;
     const scaleFactorWidth = (container.offsetWidth - pointSize) / 365;
 
-    let data = {};
+    state.set("fetching");
+    let data = await fetch("js/data.json").then(response => response.json());
+    draw();
+    state.set("loaded");
+
     dataPicker["button"].addEventListener("click", async () => {
         state.set("fetching");
         const latitude = dataPicker["latitude"].value;

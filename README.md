@@ -4,23 +4,11 @@ Super simple calculator for visualizing and estimating the prospects for going o
 
 [Hosted on Netlify](https://off-grid-calculator.netlify.app)
 
-Based on solar radiation data from [NSRDB](https://nsrdb.nrel.gov/) as collected by [NREL](https://www.nrel.gov/). Data acquired via [PVGIS](https://ec.europa.eu/jrc/en/pvgis)
-
-At last commit set up for the location of Cañon City, Colorado, USA. Other datasets can be used with appropiate changes. The calculator assumes the data cover 11 years of daily measurements - to use a different length, change the `numOfYears` parameter in main.js. 
-
-The calculator expects data in the following JSON format:
-
-```
-{
-    "Energy": [...],
-    "Temperature": [...]
-}
-```
+Based on solar radiation data acquired via [PVGIS](https://ec.europa.eu/jrc/en/pvgis) and fetched through a Cloudflare Worker. See the [PVGIS users manual](https://ec.europa.eu/jrc/en/PVGIS/docs/usermanual) for details on the used databases. PVGIS gets data on the Americas from [NSRDB](https://nsrdb.nrel.gov/) as collected by [NREL](https://www.nrel.gov/).
 
 ## The model
 The calculator is based on an extremely simple model with only a handful of inputs.
-
-The used dataset consists of 4017 datapoints covering the days between 1/1-2005 and 12/31-2015, with each datapoint having two values for that 24 hour period:
+Each retrieved dataset consists of 96,408 datapoints covering the hours between 1/1-2005 and 12/31-2015. After retrieval, the data is remapped into 24 hour intervals. Each datapoint has two values for that 24 hour period:
 
 - The total solar insolation (based on global irradiance) at the optimal angle for December at the given location
 - The average outdoor temperature at a height of 2 meters

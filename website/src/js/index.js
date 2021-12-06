@@ -87,7 +87,7 @@ async function main() {
         range.min = parameters[range.id].min;
         range.max = parameters[range.id].max;
         range.step = parameters[range.id].step;
-        range.value = parameters[range.id].default;
+        range.value = parameters[range.id].value;
         document.getElementById(`controls__${range.id}`).textContent = parameters[range.id].value;
         range.addEventListener("input", (event => {
             document.getElementById(`controls__${range.id}`).textContent = event.target.value;

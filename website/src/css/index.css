@@ -1,3 +1,22 @@
+:root {
+  --state__calculator--opacity: 0.5;
+  --state__overlay--opacity: 1;
+  --state__fetching--opacity: 1;
+}
+
+.state__calculator {
+  transition: opacity 0.5s ease;
+  opacity: var(--state__calculator--opacity);
+}
+.state__overlay {
+  transition: opacity 0.5s ease;
+  opacity: var(--state__overlay--opacity);
+}
+.state__fetching {
+  transition: opacity 0.5s ease;
+  opacity: var(--state__fetching--opacity);
+}
+
 *,
 *::before,
 *::after {
@@ -24,6 +43,16 @@ select {
   font: inherit;
 }
 
+a:link {
+  color: #84cae7;
+}
+
+a:visited {
+  color: #4ce0d2;
+  position: relative;
+  top: 2px;
+}
+
 main {
   display: grid;
   grid-template-columns: minmax(0px, 1fr) minmax(320px, 1080px) minmax(0px, 1fr);
@@ -33,24 +62,133 @@ main > * {
   grid-column: 2;
 }
 
+.site-header__header {
+  grid-area: header;
+  padding-bottom: 4px;
+}
+.site-header__title {
+  color: #ffc914;
+}
+.site-header__location {
+  color: white;
+  opacity: 0.5;
+}
+.site-header__explainer {
+  color: white;
+}
+
+.data-picker {
+  color: white;
+  display: grid;
+  grid-template-rows: auto 2rem;
+  grid-template-columns: repeat(3, minmax(0, 160px)) auto;
+  column-gap: 16px;
+  row-gap: 8px;
+  align-content: start;
+}
+@media (max-width: 620px) {
+  .data-picker {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.data-picker__container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+@media (max-width: 430px) {
+  .data-picker__container {
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 375px) {
+  .data-picker__container {
+    font-size: 0.7rem;
+  }
+}
+.data-picker__limits {
+  opacity: 0.6;
+}
+.data-picker__input {
+  grid-row: 2;
+  accent-color: #84cae7;
+  box-shadow: inset 3px 3px 10px 3px rgba(0, 0, 0, 0.2);
+  text-align: right;
+  font-size: 1.5rem;
+  border: none;
+  border-bottom: 4px solid #84cae7;
+  border-radius: 4px;
+  padding-right: 10px;
+}
+@media (max-width: 430px) {
+  .data-picker__input {
+    font-size: 1rem;
+  }
+}
+.data-picker__button {
+  height: 100%;
+  width: 160px;
+  grid-row: 2;
+  place-self: end start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #303134;
+  border: 2px solid #84cae7;
+  border-radius: 4px;
+  color: white;
+}
+.data-picker__button:hover {
+  border: 2px solid #4ce0d2;
+}
+@media (max-width: 620px) {
+  .data-picker__button {
+    width: 100%;
+    grid-row: 3;
+    grid-column: 1/4;
+  }
+}
+.data-picker__button-text {
+  padding-bottom: 4px;
+}
+.data-picker__icon {
+  opacity: 0.8;
+  position: relative;
+  fill: white;
+  height: 24px;
+}
+.data-picker__button:hover .data-picker__icon {
+  opacity: 1;
+  fill: #4ce0d2;
+}
+.data-picker__button:active .data-picker__icon {
+  top: 1px;
+}
+.data-picker__disclaimer {
+  grid-column: 1/-1;
+  place-self: end start;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
 .chart {
   --tick-color: rgba(255, 255, 255, 0.2);
   --label-color: rgba(255, 255, 255, 0.8);
   width: 100%;
   display: grid;
-  grid: auto 1fr 20px/60px 1fr auto;
+  grid: auto 1fr 20px auto/auto 1fr auto;
   padding-top: 24px;
   grid-template-areas: ". header header" "y-axis canvas summary" "origin x-axis summary" "credit credit credit";
 }
 @media (max-width: 600px) {
   .chart {
-    padding: 24px 16px 0px 0px;
+    padding: 24px 0px 0px 0px;
     grid-template-areas: ". header" "y-axis canvas" "origin x-axis" "credit credit" "summary summary";
   }
   .chart .chart__credit {
     font-size: 10px;
     padding-bottom: 8px;
-    padding-left: 16px;
   }
 }
 @media (max-width: 500px) {
@@ -63,14 +201,8 @@ main > * {
 }
 .chart__header {
   grid-area: header;
-  padding-bottom: 4px;
-}
-.chart__title {
-  color: #ffc914;
-}
-.chart__location {
-  color: white;
-  opacity: 0.5;
+  padding-bottom: 8px;
+  font-size: clamp(10px, 2.5vw, 16px);
 }
 .chart__explainer {
   color: white;
@@ -78,7 +210,7 @@ main > * {
 .chart__y-axis {
   grid-area: y-axis;
   display: grid;
-  grid-template-columns: 1fr 12px;
+  grid-template-columns: 1fr clamp(6px, 1vw, 12px);
 }
 .chart__y-axis > p {
   position: relative;
@@ -86,12 +218,15 @@ main > * {
   grid-column: 1;
   margin-right: 4px;
   top: -12px;
+  top: -7px;
+  top: clamp(-12px, -2vw, -7px);
   text-align: right;
+  font-size: clamp(10px, 3vw, 16px);
 }
 .chart__y-axis > div {
   grid-column: 2;
   height: 2px;
-  width: 12px;
+  width: 100%;
   background: var(--tick-color);
 }
 .chart__y-axis div:nth-of-type(1) {
@@ -122,8 +257,6 @@ main > * {
 }
 .chart__origin {
   grid-area: origin;
-  grid-row: 3;
-  grid-column: 1;
   border-top: 2px solid var(--tick-color);
   border-right: 2px solid var(--tick-color);
   border-top-right-radius: 4px;
@@ -151,7 +284,16 @@ main > * {
 .chart__summary {
   color: white;
   grid-area: summary;
+  height: 100%;
   padding-left: 16px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+@media (max-width: 600px) {
+  .chart__summary {
+    padding-top: 16px;
+    padding-left: 0;
+  }
 }
 .chart__summary-title {
   font-size: 0.8rem;
@@ -162,13 +304,13 @@ main > * {
 }
 .chart__stats {
   display: grid;
-  row-gap: 16px;
+  align-content: space-between;
   min-width: 210px;
 }
 @media (max-width: 600px) {
   .chart__stats {
     grid-template-columns: 1fr 1fr;
-    column-gap: 24px;
+    column-gap: 48px;
   }
 }
 .chart__parameter-name {
@@ -194,14 +336,6 @@ main > * {
   font-size: 12px;
   padding-top: 8px;
 }
-.chart__credit a:link {
-  color: #84cae7;
-}
-.chart__credit a:visited {
-  color: #4ce0d2;
-  position: relative;
-  top: 2px;
-}
 
 .controls {
   display: grid;
@@ -210,7 +344,7 @@ main > * {
   place-items: center;
   column-gap: 36px;
   row-gap: 24px;
-  padding: 24px;
+  padding: 24px 0px;
 }
 @media (max-width: 600px) {
   .controls {
@@ -252,7 +386,7 @@ main > * {
 
 .description {
   color: white;
-  padding: 48px 24px 24px 24px;
+  padding: 48px 0px;
 }
 .description__title {
   padding-bottom: 16px;
@@ -312,6 +446,23 @@ main > * {
   color: #4ce0d2;
   position: relative;
   top: 2px;
+}
+
+.overlay {
+  grid-area: canvas;
+  place-self: center;
+  color: white;
+  z-index: 1;
+  border-bottom: 2px solid #ffc914;
+  width: 80%;
+}
+.overlay__title {
+  font-size: clamp(1rem, 3vw, 2rem);
+  text-align: center;
+  padding-bottom: 10px;
+}
+.overlay__text {
+  font-size: clamp(0.8rem, 2vw, 1.5rem);
 }
 
 /*# sourceMappingURL=index.css.map */

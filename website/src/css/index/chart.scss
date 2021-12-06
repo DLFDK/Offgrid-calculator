@@ -1,9 +1,10 @@
 .chart {
+    // background: #202124;
     --tick-color: rgba(255, 255, 255, 0.2);
     --label-color: rgba(255, 255, 255, 0.8);
     width: 100%;
     display: grid;
-    grid: auto 1fr 20px / 60px 1fr auto;
+    grid: auto 1fr 20px auto / auto 1fr auto;
     padding-top: 24px;
     grid-template-areas:
         ". header header"
@@ -12,7 +13,9 @@
         "credit credit credit";
 
     @media (max-width: 600px) {
-        padding: 24px 16px 0px 0px;
+        // position: sticky;
+        // top: -50px;
+        padding: 24px 0px 0px 0px;
         grid-template-areas:
             ". header"
             "y-axis canvas"
@@ -22,7 +25,6 @@
         .chart__credit {
             font-size: 10px;
             padding-bottom: 8px;
-            padding-left: 16px;
         }
     }
 
@@ -40,17 +42,18 @@
 
     &__header {
         grid-area: header;
-        padding-bottom: 4px;
+        padding-bottom: 8px;
+        font-size: clamp(10px, 2.5vw, 16px);
     }
 
-    &__title {
-        color: #ffc914;
-    }
+    // &__title {
+    //     color: #ffc914;
+    // }
 
-    &__location {
-        color: white;
-        opacity: 0.5;
-    }
+    // &__location {
+    //     color: white;
+    //     opacity: 0.5;
+    // }
 
     &__explainer {
         color: white;
@@ -59,7 +62,7 @@
     &__y-axis {
         grid-area: y-axis;
         display: grid;
-        grid-template-columns: 1fr 12px;
+        grid-template-columns: 1fr clamp(6px, 1vw, 12px);
 
         > p {
             position: relative;
@@ -67,13 +70,16 @@
             grid-column: 1;
             margin-right: 4px;
             top: -12px;
+            top: -7px;
+            top: clamp(-12px, -1 * 2vw, -7px);
             text-align: right;
+            font-size: clamp(10px, 3vw, 16px)
         }
 
         > div {
             grid-column: 2;
             height: 2px;
-            width: 12px;
+            width: 100%;
             background: var(--tick-color);
         }
 
@@ -110,8 +116,6 @@
 
     &__origin {
         grid-area: origin;
-        grid-row: 3;
-        grid-column: 1;
         border-top: 2px solid var(--tick-color);
         border-right: 2px solid var(--tick-color);
         border-top-right-radius: 4px;
@@ -143,7 +147,14 @@
     &__summary {
         color: white;
         grid-area: summary;
+        height: 100%;
         padding-left: 16px;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        @media (max-width: 600px) {
+            padding-top: 16px;
+            padding-left: 0;
+        }
     }
 
     &__summary-title {
@@ -156,12 +167,12 @@
 
     &__stats {
         display: grid;
-        row-gap: 16px;
+        align-content: space-between;
         min-width: 210px;
 
         @media (max-width: 600px) {
             grid-template-columns: 1fr 1fr;
-            column-gap: 24px;
+            column-gap: 48px;
         }
     }
 
@@ -174,7 +185,6 @@
 
     &__value {
         text-align: right;
-        // border-bottom: 6px solid #84CAE7;
     }
 
     &__number {
@@ -195,15 +205,14 @@
         color: white;
         font-size: 12px;
         padding-top: 8px;
-
-        a:link {
-            color: #84cae7;
-        }
-
-        a:visited {
-            color: #4ce0d2;
-            position: relative;
-            top: 2px;
-        }
     }
+
+    // &__overlay {
+    //     grid-area: canvas;
+    //     place-self: center;
+    //     color: white;
+    //     z-index: 1;
+    //     font-size: clamp(1rem, 3vw, 2rem);
+    //     border-bottom: 2px solid #ffc914;
+    // }
 }

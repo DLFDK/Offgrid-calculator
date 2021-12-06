@@ -1,0 +1,19 @@
+.site-header {
+    &__header {
+        grid-area: header;
+        padding-bottom: 4px;
+    }
+
+    &__title {
+        color: #ffc914;
+    }
+
+    &__location {
+        color: white;
+        opacity: 0.5;
+    }
+
+    &__explainer {
+        color: white;
+    }
+}

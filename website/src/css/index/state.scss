@@ -1,0 +1,21 @@
+:root {
+    --state__calculator--opacity: 0.5;
+    --state__overlay--opacity: 1;
+    --state__fetching--opacity: 1;
+}
+
+.state {
+    &__calculator {
+        transition: opacity 0.5s ease;
+        opacity: var(--state__calculator--opacity);
+    }
+    &__overlay {
+        transition: opacity 0.5s ease;
+        opacity: var(--state__overlay--opacity);
+    }
+    
+    &__fetching {
+        transition: opacity 0.5s ease;
+        opacity: var(--state__fetching--opacity);
+    }
+}

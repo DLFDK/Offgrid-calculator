@@ -6,11 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="Super simple calculator for visualizing and estimating the prospects for going off-grid." />
         <link rel="stylesheet" href="css/index.css" />
+        <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" /> -->
         <title>Off-grid Calculator</title>
     </head>
     <body>
-        <div id="state" class="state"></div>
-        <main>
+        <div id="map"></div>
+        <main id="main" class="bottom">
             <header class="site-header">
                 <div class="site-header__header">
                     <h1 class="site-header__title">Off-grid Calculator</h1>
@@ -156,7 +157,7 @@
                 <div class="controls__range">
                     <label class="controls__parameter-name" for="htc">Whole House Heat Transfer Coefficient</label>
                     <p class="controls__value"><span class="controls__number" id="controls__htc"></span> <sup>W</sup>/<sub>&deg;C</sub></p>
-                    <input class="controls__input" id="htc" type="range">
+                    <input class="controls__input" id="htc" type="range" />
                 </div>
                 <div class="controls__range">
                     <label class="controls__parameter-name" for="storage">Storage Capacity</label>
@@ -253,6 +254,10 @@
                 </div>
             </div>
         </main>
+        <!-- <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script> -->
+        <script src="js/leaflet-src.js"></script>
         <script src="js/index.js"></script>
     </body>
 </html>

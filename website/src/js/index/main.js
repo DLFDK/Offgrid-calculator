@@ -136,6 +136,26 @@ async function main() {
         }
     });
 
+    const map = L.map('map').setView([51.505, -0.09], 13);
+    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        subdomains: ['a', 'b', 'c']
+    }).addTo(map);
+
+    map.on('click', (event) => {
+        const {lat, lng} = event.latlng;
+        dataPicker["latitude"].value = lat.toFixed(3);
+        dataPicker["longitude"].value = lng.toFixed(3);
+        console.log("Hello");
+    });
+
+    document.getElementById("map").classList.add("bottom");
+
+    document.getElementById("main").addEventListener("click", () => {
+        document.getElementById("main").classList.add("movedown");
+        document.getElementById("map").classList.remove("bottom");
+    });
+
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 

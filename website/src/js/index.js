@@ -8,11 +8,15 @@ async function main() {
         loadedText: "Success!",
         unloadedText: "Pick a location to get started",
         fetchingText: "Fetching, please wait...",
-        errorText: errorText = "Oops! Looks like there was an error fetching the data",
+        errorText: "Oops! Looks like there was an error fetching the data",
         state: "unloaded",
         set(newState, message) {
             this.state = newState;
             switch (newState) {
+              case "picking":
+                console.log("Picking");
+                break;
+
               case "fetching":
                 this.title.textContent = this.fetchingText;
                 this.text.textContent = "";
@@ -49,7 +53,8 @@ async function main() {
         button: document.getElementById("data-picker__button"),
         latitude: document.getElementById("data-picker__latitude"),
         longitude: document.getElementById("data-picker__longitude"),
-        angle: document.getElementById("data-picker__angle")
+        angle: document.getElementById("data-picker__angle"),
+        location: document.getElementById("data-picker__location")
     };
     const parameters = {
         numOfYears: {
@@ -113,6 +118,9 @@ async function main() {
     let data = await fetch("js/data.json").then((response => response.json()));
     draw();
     state.set("loaded");
+    dataPicker["location"].addEventListener("click", (async () => {
+        state.set("picking");
+    }));
     dataPicker["button"].addEventListener("click", (async () => {
         state.set("fetching");
         const latitude = dataPicker["latitude"].value;
@@ -127,22 +135,6 @@ async function main() {
             draw();
             state.set("loaded");
         }
-    }));
-    const map = L.map("map").setView([ 51.505, -.09 ], 13);
-    L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        subdomains: [ "a", "b", "c" ]
-    }).addTo(map);
-    map.on("click", (event => {
-        const {lat: lat, lng: lng} = event.latlng;
-        dataPicker["latitude"].value = lat.toFixed(3);
-        dataPicker["longitude"].value = lng.toFixed(3);
-        console.log("Hello");
-    }));
-    document.getElementById("map").classList.add("bottom");
-    document.getElementById("main").addEventListener("click", (() => {
-        document.getElementById("main").classList.add("movedown");
-        document.getElementById("map").classList.remove("bottom");
     }));
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);

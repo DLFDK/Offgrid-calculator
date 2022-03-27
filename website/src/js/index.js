@@ -227,8 +227,4 @@ async function main() {
         return formattedData;
     }
 }
-
-map();
-
-function map() {}
 //# sourceMappingURL=index.js.map

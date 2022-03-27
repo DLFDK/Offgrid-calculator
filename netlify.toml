@@ -2,4 +2,5 @@
   from = "/api/*"
   to = "https://api.mapbox.com/:splat?access_token=pk.eyJ1IjoiZGxmZGsiLCJhIjoiY2wxNXI3YXpnMG16ZjNra2F1MmczcHM2NSJ9.sCGl-WR32fAitrpb5LhrYw"
   status = 200
+  headers = {Referer = "https://off-grid-calculator.netlify.app/"}
   force = true

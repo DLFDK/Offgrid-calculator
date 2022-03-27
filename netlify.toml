@@ -1,6 +1,9 @@
 [[redirects]]
-  from = "/api/*"
-  to = "https://api.mapbox.com/:splat?access_token=pk.eyJ1IjoiZGxmZGsiLCJhIjoiY2wxNXI3YXpnMG16ZjNra2F1MmczcHM2NSJ9.sCGl-WR32fAitrpb5LhrYw"
-  status = 200
-  headers = {Referer = "https://off-grid-calculator.netlify.app/"}
-  force = true
+from = "/api/*"
+to = "https://api.mapbox.com/:splat?access_token=TOKEN_PLACERHOLDER"
+status = 200
+headers = { Referer = "https://off-grid-calculator.netlify.app/" }
+force = true
+
+[build]
+command = "sed -i \"s|TOKEN_PLACERHOLDER|${MAPBOX_TOKEN}|g\" netlify.toml"

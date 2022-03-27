@@ -9,8 +9,7 @@
         <title>Off-grid Calculator</title>
     </head>
     <body>
-        <div id="state" class="state"></div>
-        <main>
+        <main id="main">
             <header class="site-header">
                 <div class="site-header__header">
                     <h1 class="site-header__title">Off-grid Calculator</h1>
@@ -18,6 +17,10 @@
             </header>
             <div class="data-picker">
                 <div class="data-picker__container">
+                    <p>Pick a location</p>
+                </div>
+                <button class="data-picker__button-map state__fetching" id="data-picker__location"><p id="data-picker__button-text" class="data-picker__button-text">Open Map</p></button>
+                <!-- <div class="data-picker__container">
                     <label class="data-picker__label" for="data-picker__latitude">Latitude</label>
                     <p class="data-picker__limits">&#177;90</p>
                 </div>
@@ -26,7 +29,7 @@
                     <label class="data-picker__label" for="data-picker__longitude">Longitude</label>
                     <p class="data-picker__limits">&#177;180</p>
                 </div>
-                <input class="data-picker__input" type="number" name="longitude" id="data-picker__longitude" min="-180" max="180" step="0.001" value="-105.243" />
+                <input class="data-picker__input" type="number" name="longitude" id="data-picker__longitude" min="-180" max="180" step="0.001" value="-105.243" /> -->
                 <div class="data-picker__container">
                     <label class="data-picker__label" for="data-picker__angle">Panel Angle</label>
                     <p class="data-picker__limits">0-90</p>
@@ -40,6 +43,26 @@
                 </button>
             </div>
             <div class="chart">
+                <div id="map" class="map">
+                    <kort-js 
+                        id="kortjs"
+                        data-url="https://api.mapbox.com/styles/v1/mapbox/${id}/tiles/${z}/${x}/${y}?${token}"
+                        data-id="light-v10"
+                        data-token="access_token=pk.eyJ1IjoiZGxmZGsiLCJhIjoiY2wxNXI3YXpnMG16ZjNra2F1MmczcHM2NSJ9.sCGl-WR32fAitrpb5LhrYw"
+                        data-tilesize="512"
+                        data-maxzoom="22"
+                        data-set-latitude="38.441" 
+                        data-set-longitude="-105.243" 
+                        data-set-zoom="10">
+                        <p slot="attribution-text">© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong></p>
+                        <div slot="attribution-icon"></div>
+                        <svg slot="marker" part="marker" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7zM7 9a5 5 0 0 1 10 0c0 3-3 7-5 10-2-3-5-7-5-10z" />
+                            <circle part="marker-circle" cx="12" cy="9" r="2.5" />
+                        </svg>
+                        </kort-js>
+                    <!-- <button class="map__button"><p>Set Location</p></button> -->
+                </div>
                 <div class="chart__header state__calculator">
                     <p class="chart__explainer">Each dot indicates the energy storage level on that day (1/1-2005 to 12/31-2015)</p>
                 </div>
@@ -156,7 +179,7 @@
                 <div class="controls__range">
                     <label class="controls__parameter-name" for="htc">Whole House Heat Transfer Coefficient</label>
                     <p class="controls__value"><span class="controls__number" id="controls__htc"></span> <sup>W</sup>/<sub>&deg;C</sub></p>
-                    <input class="controls__input" id="htc" type="range">
+                    <input class="controls__input" id="htc" type="range" />
                 </div>
                 <div class="controls__range">
                     <label class="controls__parameter-name" for="storage">Storage Capacity</label>
@@ -254,5 +277,6 @@
             </div>
         </main>
         <script src="js/index.js"></script>
+        <script type="module" src="https://unpkg.com/kortjs@latest/web-component/dist/kortjs.min.js"></script>
     </body>
 </html>

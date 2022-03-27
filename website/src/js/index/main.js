@@ -8,7 +8,7 @@ async function main() {
         loadedText: "Success!",
         unloadedText: "Pick a location to get started",
         fetchingText: "Fetching, please wait...",
-        errorText = "Oops! Looks like there was an error fetching the data",
+        errorText: "Oops! Looks like there was an error fetching the data",
         state: "unloaded",
         set(newState, message) {
             this.state = newState;
@@ -49,8 +49,45 @@ async function main() {
         button: document.getElementById("data-picker__button"),
         latitude: document.getElementById("data-picker__latitude"),
         longitude: document.getElementById("data-picker__longitude"),
-        angle: document.getElementById("data-picker__angle")
+        angle: document.getElementById("data-picker__angle"),
+        location: document.getElementById("data-picker__location")
     };
+
+    const map = {
+        element: document.getElementById("map"),
+        kortjs: document.getElementById("kortjs"),
+        label: document.getElementById("data-picker__button-text"),
+        state: "hidden",
+        toggle() {
+            if(this.state === "hidden"){
+                this.show();
+            } else {
+                this.hide();
+            }
+        },
+        show() {
+            if(this.state === "shown") return;
+            this.label.textContent = "Close Map";
+            this.state = "shown";
+            this.element.style.display = "block";
+            this.element.animate(
+                { opacity: 0, offset: 0 },
+                { duration: 300 }
+            );
+        },
+        hide() {
+            if(this.state === "hidden") return;
+            this.label.textContent = "Open Map";
+            this.state = "hidden";
+            const animation = this.element.animate(
+                { opacity: 0, offset: 1 },
+                { duration: 300 }
+            );
+            animation.addEventListener("finish", () => {
+                this.element.style.display = "none";
+            });
+        }
+    }
 
     const parameters = {
         numOfYears: {
@@ -119,11 +156,16 @@ async function main() {
     draw();
     state.set("loaded");
 
+    dataPicker["location"].addEventListener("click", async () => {
+        map.toggle();
+    });
+
     dataPicker["button"].addEventListener("click", async () => {
-        state.set("fetching");
-        const latitude = dataPicker["latitude"].value;
-        const longitude = dataPicker["longitude"].value;
+        const longitude = map.kortjs.dataset.getLongitude;
+        const latitude = map.kortjs.dataset.getLatitude;
         const angle = dataPicker["angle"].value;
+        map.hide();
+        state.set("fetching");
         const URL = `https://off-grid.dlfdk.workers.dev/api/seriescalc?lat=${latitude}&lon=${longitude}&browser=1&outputformat=json&usehorizon=1&angle=${angle}&startyear=2005&endyear=2015`;
         // const URL = localURL;
         const rawData = await fetch(URL).then(response => response.json());

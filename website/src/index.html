@@ -20,16 +20,6 @@
                     <p>Pick a location</p>
                 </div>
                 <button class="data-picker__button-map state__fetching" id="data-picker__location"><p id="data-picker__button-text" class="data-picker__button-text">Open Map</p></button>
-                <!-- <div class="data-picker__container">
-                    <label class="data-picker__label" for="data-picker__latitude">Latitude</label>
-                    <p class="data-picker__limits">&#177;90</p>
-                </div>
-                <input class="data-picker__input" type="number" name="latitude" id="data-picker__latitude" min="-90" max="90" step="0.001" value="38.441" />
-                <div class="data-picker__container">
-                    <label class="data-picker__label" for="data-picker__longitude">Longitude</label>
-                    <p class="data-picker__limits">&#177;180</p>
-                </div>
-                <input class="data-picker__input" type="number" name="longitude" id="data-picker__longitude" min="-180" max="180" step="0.001" value="-105.243" /> -->
                 <div class="data-picker__container">
                     <label class="data-picker__label" for="data-picker__angle">Panel Angle</label>
                     <p class="data-picker__limits">0-90</p>
@@ -46,9 +36,8 @@
                 <div id="map" class="map">
                     <kort-js 
                         id="kortjs"
-                        data-url="https://api.mapbox.com/styles/v1/mapbox/${id}/tiles/${z}/${x}/${y}?${token}"
+                        data-url="https://off-grid-calculator.netlify.app/api/styles/v1/mapbox/${id}/tiles/${z}/${x}/${y}/"
                         data-id="light-v10"
-                        data-token="access_token=pk.eyJ1IjoiZGxmZGsiLCJhIjoiY2wxNXI3YXpnMG16ZjNra2F1MmczcHM2NSJ9.sCGl-WR32fAitrpb5LhrYw"
                         data-tilesize="512"
                         data-maxzoom="22"
                         data-set-latitude="38.441" 
